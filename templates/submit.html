@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Ticket Submitted Successfully!</h2>
+
+    <p>Thank you, {{ name }}! Your support ticket has been received.</p>
+
+    <h3>Ticket Details</h3>
+
+    <p>Name: {{ name }}</p>
+    <p>Issue Type: {{ issue }}</p>
+    <p>Description: {{ description }}</p>
+    <p>Priority: {{ priority }}</p>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Kevin's IT Help Desk</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Welcome to Kevin's IT Help Desk Ticket System!</h1>
+            <div class="navigation">
+                <ul>
+                    <li>
+                        <a href="{{ url_for('home') }}">
+                            <p>Home</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('general_questions') }}">
+                            <p>General Questions</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            {% block content %}{% endblock content %}
+        </div>
+    </body>
+</html>
