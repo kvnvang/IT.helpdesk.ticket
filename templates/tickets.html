@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>All Support Tickets</h1>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Issue</th>
+            <th>Description</th>
+            <th>Priority</th>
+        </tr>
+
+    {% for ticket in tickets %}
+    <tr>
+        <td>{{ ticket.id }}</td>
+        <td>{{ ticket.name }}</td>
+        <td>{{ ticket.issue }}</td>
+        <td>{{ ticket.description }}</td>
+        <td>{{ ticket.priority }}</td>
+    </tr>
+    {% endfor %}
+
+    </table>
+
+{% endblock %}
