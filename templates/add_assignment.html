@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Assign Technician to Ticket</h2>
+
+
+<form method="post" id="assignmentForm">
+
+    <label>Ticket</label>
+    <select name="ticket_id" required>
+        <option value="">-- Select Ticket--</option>
+        {% for ticket in tickets %}
+            <option value="{{ ticket.id }}">{{ ticket.id }} - {{ ticket.issue }}</option>
+        {% endfor %}
+    </select><br>
+
+    <label>Technician:</label>
+    <select name="technician_id" required>
+        <option value="">-- select technician --</option>
+        {% for technician in technicians %}
+            <option value="{{ technician.id }}">{{ technician.name }}</option>
+        {% endfor %}
+    </select><br>
+
+    <button type="submit">Save Assignment</button>
+</form>
+
+{% endblock %}

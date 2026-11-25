@@ -1,0 +1,50 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Edit Support Ticket</h1>
+
+<form action="{{ url_for('edit_ticket') }}" method="POST">
+
+    <input name="ticketId" type="hidden" value="{{ ticket.id }}">
+
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name" value="{{ ticket.name }}" required>
+
+    <label for="issue">Issue:</label>
+    <select name="issue" id="issue">
+        <option value="Hardware">Hardware</option>
+        <option value="Software">Software</option>
+        <option value="Network">Network</option>
+        <option value="Other">Other</option>
+    </select>
+
+    <label for="description">Description:</label>
+    <textarea name="description" id="description" required>{{ ticket.description }}</textarea>
+
+    <label for="priority">Priority:</label>
+    <select name="priority" id="priority">
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+    </select>
+
+    <button type="submit">Update Ticket</button>
+
+</form>
+
+<script>
+    function setSelected(selectElement, value) {
+        for (var i = 0; i < selectElement.options.length; i++) {
+            if(selectElement.options[i].value == value) {
+                selectElement.options[i].selected = true;
+                return;
+            }
+        }
+    }
+    setSelected(document.getElementById('issue'), '{{ ticket.issue }}');
+    setSelected(document.getElementById('priority'), '{{ ticket.priority }}');
+</script>
+
+{% endblock %}

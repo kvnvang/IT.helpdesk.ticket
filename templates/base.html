@@ -27,6 +27,20 @@
                             <p>Tickets</p>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ url_for('add_technician') }}">
+                            <p>Add Technician</p>
+                        </a>
+                    </li>
+                    <li><a href="{{ url_for('add_assignment') }}">
+                            <p>Assign Technician</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('view_by_technician') }}">
+                            <p>View Technicians</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
             {% block content %}{% endblock content %}

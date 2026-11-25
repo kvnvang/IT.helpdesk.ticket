@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Edit Assignment</h2>
+
+<form method="post" id="assignmentForm">
+
+    <label>Ticket:</label>
+    <select name="ticket_id" required>
+        {% for ticket in tickets %}
+            <option
+                {% if ticket.id == assignment.ticket_id %} selected {% endif %}
+                value="{{ ticket.id }}">
+                {{ ticket.id }} - {{ ticket.issue }}
+            </option>
+        {% endfor %}
+    </select><br>
+
+    <label>Technician:</label>
+    <select name="technician_id" required>
+        {% for technician in technicians %}
+            <option
+                {% if technician.id == assignment.technician_id %} selected {% endif %}
+                value="{{ technician.id }}">
+                {{ technician.name }}
+            </option>
+        {% endfor %}
+    </select><br>
+
+    <button type="submit">Save Assignment</button>
+
+</form>
+
+{% endblock %}

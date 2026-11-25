@@ -1,17 +1,59 @@
+
 {% extends "base.html" %}
 
 {% block content %}
 
-    <h1>All Support Tickets</h1>
+<h1>All Support Tickets</h1>
 
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Issue</th>
-            <th>Description</th>
-            <th>Priority</th>
-        </tr>
+<form action="{{ url_for('append_reminder') }}" method="POST">
+    <label for="append-text">Reminder to Add:</label>
+    <input type="text" name="append-text" id="append-text"
+        placeholder="Enter reminder">
+
+    <label for="priority-selector">Apply Only To Priority:</label>
+    <select name="priority-selector" id="priority-selector" multiple>
+        <option value="all">All</option>
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+    </select>
+
+    <label for="issue-selector">Apply Only To Issue:</label>
+    <select name="issue-selector" id="issue-selector">
+        <option value="all">All</option>
+        <option value="Hardware">Hardware</option>
+        <option value="Software">Software</option>
+        <option value="Network">Network</option>
+        <option value="Other">Other</option>
+    </select>
+
+    <button type="submit">Add Reminder</button>
+</form>
+
+<a href="{{ url_for('delete_first') }}">Remove Oldest Ticket</a>
+
+<form action="{{ url_for('delete_priority') }}" method="POST">
+    <label for="priority-to-delete">Delete Tickets By Priority:</label>
+    <select name="priority-to-delete" id="priority-to-delete" multiple>
+        <option value="all">All</option>
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+    </select>
+    <button type="submit">Delete Tickets</button>
+</form>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Issue</th>
+        <th>Description</th>
+        <th>Priority</th>
+        <th>Assigned Technicians</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
 
     {% for ticket in tickets %}
     <tr>
@@ -20,9 +62,39 @@
         <td>{{ ticket.issue }}</td>
         <td>{{ ticket.description }}</td>
         <td>{{ ticket.priority }}</td>
+
+# week 11: Tech display
+<td>
+    <ul>
+        {% for assignment in ticket.assignments %}
+            <li>
+                {{ assignment.technician.name }}
+                <a href="{{ url_for('edit_assignment', id=assignment.id) }}">Edit</a> |
+                <a href="{{ url_for('delete_assignment', id=assignment.id) }}">Delete</a>
+            </li>
+        {% else %}
+            <li>No technicians assigned yet</li>
+        {% endfor %}
+    </ul>
+</td>
+
+        <td>
+            <div>
+                <a href="{{url_for('edit_ticket') }}?ticketId={{ ticket.id }}">
+                    <button>Edit</button>
+                </a>
+            </div>
+        </td>
+        <td>
+            <div>
+                <form method='POST' action="{{ url_for('delete_ticket') }}">
+                    <input name="ticketId" type="hidden" value="{{ ticket.id }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        </td>
     </tr>
     {% endfor %}
-
-    </table>
+</table>
 
 {% endblock %}
